@@ -16,6 +16,13 @@ class UserController {
     const data = await this.UserService.getUser(id);
     return res.status(200).send(data);
   };
+
+  public createUser = async (req: Request, res: Response) => {
+    const data = req.body;
+
+    const save = await this.UserService.createUser(data);
+    return res.status(200).send(save);
+  };
 }
 
 export default UserController;

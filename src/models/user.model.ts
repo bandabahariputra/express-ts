@@ -6,14 +6,14 @@ export interface UserAttributes {
   id: string;
   name: string;
   email: string;
-  password?: string;
+  password: string;
 }
 
 class User extends Model<UserAttributes> implements UserAttributes {
   declare id: string;
   declare name: string;
   declare email: string;
-  declare password?: string;
+  declare password: string;
 }
 
 User.init(

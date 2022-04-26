@@ -10,6 +10,9 @@ class App {
     this.express = express();
     this.port = port;
 
+    this.express.use(express.json());
+    this.express.use(express.urlencoded({ extended: true }));
+
     this.routes();
   }
 
