@@ -1,7 +1,6 @@
-import UserInterface from '../interfaces/user.interface';
 import User from '../models/user.model';
 
-class UserService implements UserInterface {
+class UserService {
   public getUsers = async (): Promise<User[] | Error> => {
     try {
       const result = await User.findAll();
