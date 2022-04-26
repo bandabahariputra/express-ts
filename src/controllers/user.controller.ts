@@ -20,16 +20,23 @@ class UserController {
   public createUser = async (req: Request, res: Response) => {
     const data = req.body;
 
-    const save = await this.UserService.createUser(data);
-    return res.status(200).send(save);
+    const saveUser = await this.UserService.createUser(data);
+    return res.status(200).send(saveUser);
   };
 
   public updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     const data = req.body;
 
-    const update = await this.UserService.updateUser(id, data);
-    return res.status(200).send(update);
+    const updateUser = await this.UserService.updateUser(id, data);
+    return res.status(200).send(updateUser);
+  };
+
+  public deleteUser = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const deleteUser = await this.UserService.deleteUser(id);
+    return res.status(200).send(deleteUser);
   };
 }
 

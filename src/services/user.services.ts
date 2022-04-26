@@ -31,9 +31,9 @@ class UserService {
 
   public createUser = async (data: any): Promise<string> => {
     try {
-      const save = await User.create(data);
+      const saveUser = await User.create(data);
 
-      if (!save) {
+      if (!saveUser) {
         throw new Error('Cannot save data.');
       }
 
@@ -45,19 +45,37 @@ class UserService {
 
   public updateUser = async (id: string, data: any): Promise<string> => {
     try {
-      const update = await User.update(data, {
+      const updateUser = await User.update(data, {
         where: {
           id,
         },
       });
 
-      if (!update) {
+      if (!updateUser) {
         throw new Error('Cannot update data.');
       }
 
       return 'Success';
     } catch (error: any) {
       return 'Error updating data: ' + error.message;
+    }
+  };
+
+  public deleteUser = async (id: string): Promise<string> => {
+    try {
+      const deleteUser = await User.destroy({
+        where: {
+          id,
+        },
+      });
+
+      if (!deleteUser) {
+        throw new Error('Cannot delete data.');
+      }
+
+      return 'Success';
+    } catch (error: any) {
+      return 'Error deleting data: ' + error.message;
     }
   };
 }
