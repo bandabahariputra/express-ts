@@ -23,6 +23,14 @@ class UserController {
     const save = await this.UserService.createUser(data);
     return res.status(200).send(save);
   };
+
+  public updateUser = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = req.body;
+
+    const update = await this.UserService.updateUser(id, data);
+    return res.status(200).send(update);
+  };
 }
 
 export default UserController;

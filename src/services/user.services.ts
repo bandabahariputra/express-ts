@@ -42,6 +42,24 @@ class UserService {
       return 'Error saving data: ' + error.message;
     }
   };
+
+  public updateUser = async (id: string, data: any): Promise<string> => {
+    try {
+      const update = await User.update(data, {
+        where: {
+          id,
+        },
+      });
+
+      if (!update) {
+        throw new Error('Cannot update data.');
+      }
+
+      return 'Success';
+    } catch (error: any) {
+      return 'Error updating data: ' + error.message;
+    }
+  };
 }
 
 export default UserService;
