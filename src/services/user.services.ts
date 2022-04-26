@@ -45,6 +45,12 @@ class UserService {
 
   public updateUser = async (id: string, data: any): Promise<string> => {
     try {
+      const user = await User.findByPk(id);
+
+      if (!user) {
+        throw new Error('Cannot find data.');
+      }
+
       const updateUser = await User.update(data, {
         where: {
           id,
