@@ -1,12 +1,11 @@
 import { Sequelize } from 'sequelize';
 
-const db = new Sequelize(
-  'postgresql://postgres:postgres@localhost:5432/vokraf',
-  {
-    query: {
-      raw: true,
-    },
+import config from './config';
+
+const db = new Sequelize(config.POSTGRES_URL, {
+  query: {
+    raw: true,
   },
-);
+});
 
 export default db;
