@@ -59,7 +59,7 @@ class UserService {
   public updateUser = async (
     id: string,
     data: any,
-  ): Promise<string | Record<string, unknown>> => {
+  ): Promise<boolean | Record<string, unknown>> => {
     try {
       const user = await User.findByPk(id);
 
@@ -77,7 +77,7 @@ class UserService {
         throw new Error('Cannot update data.');
       }
 
-      return 'Success';
+      return true;
     } catch (error: any) {
       return {
         status: 'error',
@@ -88,7 +88,7 @@ class UserService {
 
   public deleteUser = async (
     id: string,
-  ): Promise<string | Record<string, unknown>> => {
+  ): Promise<boolean | Record<string, unknown>> => {
     try {
       const deleteUser = await User.destroy({
         where: {
@@ -100,7 +100,7 @@ class UserService {
         throw new Error('Cannot delete data.');
       }
 
-      return 'Success';
+      return true;
     } catch (error: any) {
       return {
         status: 'error',

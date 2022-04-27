@@ -29,14 +29,14 @@ class UserController {
     const data = req.body;
 
     const updateUser = await this.UserService.updateUser(id, data);
-    return res.status(200).send(updateUser);
+    return res.status(204).send(updateUser);
   };
 
   public deleteUser = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const deleteUser = await this.UserService.deleteUser(id);
-    return res.status(200).send(deleteUser);
+    return res.status(204).send(deleteUser);
   };
 }
 
