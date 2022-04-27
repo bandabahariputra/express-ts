@@ -21,7 +21,7 @@ class UserController {
     const data = req.body;
 
     const saveUser = await this.UserService.createUser(data);
-    return res.status(200).send(saveUser);
+    return res.status(201).send(saveUser);
   };
 
   public updateUser = async (req: Request, res: Response) => {
