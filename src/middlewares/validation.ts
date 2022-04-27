@@ -16,7 +16,7 @@ class Validate {
         const errorMessage = error.details.map((details) =>
           details.message.replace(/["]+/g, ''),
         );
-        return res.status(400).send(errorMessage);
+        return res.status(422).send(errorMessage);
       }
 
       Object.assign(req, value);
