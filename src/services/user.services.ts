@@ -37,10 +37,35 @@ class UserService {
     }
   };
 
+  public getUserByEmail = async (
+    email: string,
+  ): Promise<UserAttributes | Record<string, unknown>> => {
+    try {
+      const result = await User.findOne({ where: { email } });
+
+      if (!result) {
+        throw new Error('Cannot find data.');
+      }
+
+      return result;
+    } catch (error: any) {
+      return {
+        status: 'error',
+        message: error.message,
+      };
+    }
+  };
+
   public createUser = async (
     data: any,
   ): Promise<string | Record<string, unknown>> => {
     try {
+      const user = await this.getUserByEmail(data.email);
+
+      if (user.id) {
+        throw new Error('Email already taken.');
+      }
+
       const saveUser = await User.create(data);
 
       if (!saveUser) {

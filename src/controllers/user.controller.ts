@@ -21,7 +21,8 @@ class UserController {
     const data = req.body;
 
     const saveUser = await this.UserService.createUser(data);
-    return res.status(201).send(saveUser);
+
+    return res.status(200).send(saveUser);
   };
 
   public updateUser = async (req: Request, res: Response) => {
@@ -29,14 +30,14 @@ class UserController {
     const data = req.body;
 
     const updateUser = await this.UserService.updateUser(id, data);
-    return res.status(204).send(updateUser);
+    return res.status(200).send(updateUser);
   };
 
   public deleteUser = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const deleteUser = await this.UserService.deleteUser(id);
-    return res.status(204).send(deleteUser);
+    return res.status(200).send(deleteUser);
   };
 }
 
