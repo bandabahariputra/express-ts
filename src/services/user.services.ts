@@ -1,7 +1,7 @@
 import User, { UserAttributes } from '../models/user.model';
 
 class UserService {
-  public getUsers = async (): Promise<User[] | string> => {
+  public getUsers = async (): Promise<User[] | Record<string, unknown>> => {
     try {
       const result = await User.findAll();
 
@@ -11,11 +11,16 @@ class UserService {
 
       return result;
     } catch (error: any) {
-      return error.message;
+      return {
+        status: 'error',
+        msessage: error.message,
+      };
     }
   };
 
-  public getUser = async (id: string): Promise<UserAttributes | string> => {
+  public getUser = async (
+    id: string,
+  ): Promise<UserAttributes | Record<string, unknown>> => {
     try {
       const result = await User.findByPk(id);
 
@@ -25,11 +30,16 @@ class UserService {
 
       return result;
     } catch (error: any) {
-      return error.message;
+      return {
+        status: 'error',
+        message: error.message,
+      };
     }
   };
 
-  public createUser = async (data: any): Promise<string> => {
+  public createUser = async (
+    data: any,
+  ): Promise<string | Record<string, unknown>> => {
     try {
       const saveUser = await User.create(data);
 
@@ -39,11 +49,17 @@ class UserService {
 
       return 'Success';
     } catch (error: any) {
-      return 'Error saving data: ' + error.message;
+      return {
+        status: 'error',
+        message: error.message,
+      };
     }
   };
 
-  public updateUser = async (id: string, data: any): Promise<string> => {
+  public updateUser = async (
+    id: string,
+    data: any,
+  ): Promise<string | Record<string, unknown>> => {
     try {
       const user = await User.findByPk(id);
 
@@ -63,11 +79,16 @@ class UserService {
 
       return 'Success';
     } catch (error: any) {
-      return 'Error updating data: ' + error.message;
+      return {
+        status: 'error',
+        message: error.message,
+      };
     }
   };
 
-  public deleteUser = async (id: string): Promise<string> => {
+  public deleteUser = async (
+    id: string,
+  ): Promise<string | Record<string, unknown>> => {
     try {
       const deleteUser = await User.destroy({
         where: {
@@ -81,7 +102,10 @@ class UserService {
 
       return 'Success';
     } catch (error: any) {
-      return 'Error deleting data: ' + error.message;
+      return {
+        status: 'error',
+        message: error.message,
+      };
     }
   };
 }
