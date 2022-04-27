@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, UUIDV4 } from 'sequelize';
 
 import sequelize from '../config/sequelize';
 
@@ -22,6 +22,7 @@ User.init(
       field: '_id',
       type: DataTypes.STRING,
       primaryKey: true,
+      defaultValue: UUIDV4,
     },
     name: {
       field: 'first_name',
