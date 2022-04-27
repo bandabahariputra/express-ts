@@ -47,7 +47,9 @@ class UserService {
         throw new Error('Cannot save data.');
       }
 
-      return 'Success';
+      return {
+        id: saveUser.id,
+      };
     } catch (error: any) {
       return {
         status: 'error',
