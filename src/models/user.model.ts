@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { DataTypes, Model, UUIDV4 } from 'sequelize';
 
 import sequelize from '../config/sequelize';
@@ -8,6 +9,8 @@ export interface UserAttributes {
   email: string;
   password: string;
 }
+
+export interface UserInstance extends Model<UserAttributes>, UserAttributes {}
 
 class User extends Model<UserAttributes> implements UserAttributes {
   declare id: string;
@@ -41,5 +44,16 @@ User.init(
     tableName: 'user',
   },
 );
+
+const setUserPassword = (user: UserInstance): void => {
+  const { password } = user;
+  const saltRounds = 10;
+
+  const hash = bcrypt.hashSync(password, saltRounds);
+  user.setDataValue('password', hash);
+};
+
+User.addHook('beforeCreate', setUserPassword);
+User.addHook('beforeUpdate', setUserPassword);
 
 export default User;
