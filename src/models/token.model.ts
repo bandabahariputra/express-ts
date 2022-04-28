@@ -3,7 +3,7 @@ import { DataTypes, Model, UUIDV4 } from 'sequelize';
 import sequelize from '../config/sequelize';
 
 export interface TokenAttributes {
-  id: string;
+  id?: string;
   userId: string;
   token: string;
   type: string;

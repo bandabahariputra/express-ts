@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 
-import { generateAccessToken } from '../helpers/token';
+import { generateToken } from '../helpers/token';
+import Token from '../models/token.model';
 import User from '../models/user.model';
 
 interface Login {
@@ -37,14 +38,20 @@ class AuthService {
         id: getUser.id,
       };
 
-      const accessToken = generateAccessToken(payloadToken);
+      const token = generateToken(payloadToken);
+
+      await Token.create({
+        userId: getUser.id,
+        token: token.refreshToken,
+        type: 'refresh',
+      });
 
       return {
         message: 'Login success.',
         user: {
           id: getUser.id,
         },
-        accessToken,
+        accessToken: token.accessToken,
       };
     } catch (error: any) {
       return {

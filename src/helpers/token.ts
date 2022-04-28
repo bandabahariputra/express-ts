@@ -12,12 +12,17 @@ interface Payload {
   id: string;
 }
 
+interface Token {
+  accessToken: string;
+  refreshToken: string;
+}
+
 interface VerifyAccessToken {
   message: string;
   data: JwtPayload | string | any;
 }
 
-const generateAccessToken = (payload: Payload): string => {
+const generateToken = (payload: Payload): Token => {
   const getMilliSecondExpires = ms(config.JWT_ACCESS_TOKEN_EXPIRED);
   const expiresIn = Number(getMilliSecondExpires) / 1000;
 
@@ -27,7 +32,15 @@ const generateAccessToken = (payload: Payload): string => {
     { expiresIn },
   );
 
-  return accessToken;
+  const refreshToken = jwt.sign(
+    JSON.parse(JSON.stringify(payload)),
+    config.JWT_SECRET_ACCESS_TOKEN,
+  );
+
+  return {
+    accessToken,
+    refreshToken,
+  };
 };
 
 const getToken = (headers: any): string => {
@@ -64,4 +77,4 @@ const verifyAccessToken = (token: string): VerifyAccessToken | undefined => {
   }
 };
 
-export { generateAccessToken, getToken, verifyAccessToken };
+export { generateToken, getToken, verifyAccessToken };
