@@ -1,11 +1,14 @@
 import bcrypt from 'bcrypt';
 
+import { generateAccessToken } from '../helpers/token';
 import User from '../models/user.model';
 
 interface Login {
+  message: string;
   user: {
     id: string;
   };
+  accessToken: string;
 }
 
 class AuthService {
@@ -30,10 +33,18 @@ class AuthService {
         throw new Error('Wrong password.');
       }
 
+      const payloadToken = {
+        id: getUser.id,
+      };
+
+      const accessToken = generateAccessToken(payloadToken);
+
       return {
+        message: 'Login success.',
         user: {
           id: getUser.id,
         },
+        accessToken,
       };
     } catch (error: any) {
       return {
