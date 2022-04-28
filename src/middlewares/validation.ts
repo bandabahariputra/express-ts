@@ -3,7 +3,7 @@ import Joi from 'joi';
 
 import pick from '../utils/pick';
 
-class Validate {
+class Validation {
   public run =
     (schema: any) => (req: Request, res: Response, next: NextFunction) => {
       const validSchema = pick(schema, ['params', 'query', 'body']);
@@ -25,4 +25,4 @@ class Validate {
     };
 }
 
-export default Validate;
+export default Validation;
