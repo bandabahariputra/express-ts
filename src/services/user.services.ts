@@ -1,7 +1,7 @@
 import User, { UserAttributes } from '../models/user.model';
 
 class UserService {
-  public getUsers = async (): Promise<User[] | Record<string, unknown>> => {
+  public getUsers = async (): Promise<User[] | Record<string, any>> => {
     try {
       const result = await User.findAll();
 
@@ -20,7 +20,7 @@ class UserService {
 
   public getUser = async (
     id: string,
-  ): Promise<UserAttributes | Record<string, unknown>> => {
+  ): Promise<UserAttributes | Record<string, any>> => {
     try {
       const result = await User.findByPk(id);
 
@@ -39,7 +39,7 @@ class UserService {
 
   public getUserByEmail = async (
     email: string,
-  ): Promise<UserAttributes | Record<string, unknown>> => {
+  ): Promise<UserAttributes | Record<string, any>> => {
     try {
       const result = await User.findOne({ where: { email } });
 
@@ -58,7 +58,7 @@ class UserService {
 
   public createUser = async (
     data: any,
-  ): Promise<string | Record<string, unknown>> => {
+  ): Promise<string | Record<string, any>> => {
     try {
       const user = await this.getUserByEmail(data.email);
 
@@ -86,7 +86,7 @@ class UserService {
   public updateUser = async (
     id: string,
     data: any,
-  ): Promise<boolean | Record<string, unknown>> => {
+  ): Promise<boolean | Record<string, any>> => {
     try {
       const user = await User.findByPk(id);
 
@@ -115,7 +115,7 @@ class UserService {
 
   public deleteUser = async (
     id: string,
-  ): Promise<boolean | Record<string, unknown>> => {
+  ): Promise<boolean | Record<string, any>> => {
     try {
       const deleteUser = await User.destroy({
         where: {
